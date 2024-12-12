@@ -1,4 +1,4 @@
-#                                   CS-374 Final Project: Michael Connors, Evan Tilton, Owen Fazzini
+#                                   CS-374 Final Project: Michael Connors, Evan Tilton, Owen LastName
 #======================================================================================================================================
 # The goal of this program is to utilize google forms to take your input and parse the downloaded google forms responses.
 # We would like it to be able to read from a .csv of an excel spreadsheet since that is where the form responses will be stored.
@@ -6,6 +6,7 @@
 
 import re           # for regular expressions
 import requests     # pip install requests
+from UserFunctions import *
 
 
 def generate_database(file_name):
@@ -41,6 +42,7 @@ def generate_tokens(line):
     
     return tokens, tokentypes
 
+
 def download_google_sheet_as_csv(sheet_id, file_name):
     # URL to export Google Sheets as CSV
     url = f'https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv'
@@ -61,9 +63,10 @@ def download_google_sheet_as_csv(sheet_id, file_name):
 sheet_id = '1l20PqkNbb3_HmhJprtnLzuWiBWeYkbv6t5RQKZKMtGU'  #<------ Put Sheet ID in the URL here
 file_name = 'FinalProject.csv'
 download_google_sheet_as_csv(sheet_id, file_name)
-generate_database(file_name)
+database = generate_database(file_name)
 
 line = "hi" # change line to be user input of command
 tokens = generate_tokens(line)
 
+pay("Test_Person",database)
 

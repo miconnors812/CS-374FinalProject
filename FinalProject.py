@@ -38,7 +38,7 @@ def generate_tokens(line):
         for match in matches:
             tokens.append(match)
             tokentypes.append(patterntypes[i])
-        i++
+        i += 1
     
     return tokens, tokentypes
 

@@ -24,6 +24,24 @@ def generate_database(file_name):
 
     return tokens
 
+def generate_tokens(line):
+    tokens = []
+    tokentypes = []
+
+    patterns = ['pay', 'hours', r'workername=\w+ \w+']
+    
+    patterntypes = ["pay", "hours", "workername"]
+
+    i = 0
+    for pattern in patterns:
+        matches = re.findall(pattern, text)
+        for match in matches:
+            tokens.append(match)
+            tokentypes.append(patterntypes[i])
+        i++
+    
+    return tokens, tokentypes
+
 
 def download_google_sheet_as_csv(sheet_id, file_name):
     # URL to export Google Sheets as CSV
@@ -41,8 +59,14 @@ def download_google_sheet_as_csv(sheet_id, file_name):
         print(f"Failed to download the file. HTTP status code: {response.status_code}")
 
 
+
 sheet_id = '1l20PqkNbb3_HmhJprtnLzuWiBWeYkbv6t5RQKZKMtGU'  #<------ Put Sheet ID in the URL here
 file_name = 'FinalProject.csv'
 download_google_sheet_as_csv(sheet_id, file_name)
 database = generate_database(file_name)
+
+line = "hi" # change line to be user input of command
+tokens = generate_tokens(line)
+
 pay("Test_Person",database)
+

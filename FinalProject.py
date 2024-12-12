@@ -23,6 +23,9 @@ def generate_database(file_name):
 
     return tokens
 
+def generate_tokens(line):
+    tokens = line.split()
+    return tokens
 
 def download_google_sheet_as_csv(sheet_id, file_name):
     # URL to export Google Sheets as CSV

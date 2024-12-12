@@ -2,6 +2,7 @@
 # All of this is Michael Connors's work, as well as the generate_database() and download_google_sheet_as_csv() functions in main
 
 import re           # for regular expressions
+import math         # to round down hours when printing time worked
 
 # Helper method to find out if a worker has inputted their information into the system
 def worker_exists(worker,database):
@@ -16,6 +17,22 @@ def worker_exists(worker,database):
                     exists = 1
     #print(exists)
     return exists
+
+def all_workers(database):
+    # "all" has been inputted, so add up every worker's hours.
+    # However, there are duplicates for workers who inputted multiple times,
+    # So we must also weed out those names that appear multiple times.
+    workers = []
+    for i in range(1,len(database)):
+        workers.append(database[i][2])  # preemptively add their name to the end
+        #print(database[i][2] + " appended!")
+        for j in range(len(workers)-1):   # check every name but the most recent
+            #print(workers[j]+" VS "+workers[len(workers)-1])
+            if (workers[j] == workers[len(workers)-1]): # has this name already been put in the array of workers?
+                workers.pop()                  # if so, remove them
+                #print("Duplicate popped!")
+                break                             # we don't need to go any further
+    return workers
 
 
 def pay(worker,database):
@@ -39,27 +56,14 @@ def pay(worker,database):
                 wage = 45        # $45 an hour for CEOs
 
             # Next, determine their hours
-            #time = hours(worker,database)
-
-            time = 5 #TEST VALUEEE
+            time = hours(worker,database)
 
             # Finally, calculate their earnings
             earnings = time * wage
 
         else:
-            # "all" has been inputted, so add up every worker's pay.
-            # However, that includes duplicates for workers who inputted multiple times,
-            # So we must also weed out those names that appear multiple times.
-            workers = []
-            for i in range(1,len(database)):
-                workers.append(database[i][2])  # preemptively add their name to the end
-                #print(database[i][2] + " appended!")
-                for j in range(len(workers)-1):   # check every name but the most recent
-                    #print(workers[j]+" VS "+workers[len(workers)-1])
-                    if (workers[j] == workers[len(workers)-1]): # has this name already been put in the array of workers?
-                        workers.pop()                  # if so, remove them
-                        #print("Duplicate popped!")
-                        break                             # we don't need to go any further
+            # add up every worker's pay recursively
+            workers = all_workers(database)
 
             for employee in workers:
                 earnings += pay(employee,database) # add up everyone's pay
@@ -67,11 +71,64 @@ def pay(worker,database):
 
     else:
         print("Incorrect input! The employee you named does not exist.")
-    #print(earnings)
+
+    print("How much money", worker, "earned: $", earnings)
     return earnings
 
 
-#def hours(worker,database):
+def hours(worker,database):
+    time = 0
+    exists = worker_exists(worker,database)
+    if (exists > 0): 
+        if (exists == 1): # only one employee's name was inputted 
+
+            for i in range(1,len(database)):
+                if (database[i][2] == worker):
+                    clockedIn = database[i][4].split(" ")
+                    clockedOut = database[i][5].split(" ")
+
+                    clockedIn[0] = clockedIn[0].split(":")
+                    if (clockedIn[1] == "AM") & (clockedIn[0][0] == "12"): #convert to military time if midnight
+                        clockedIn[0][0] = "0"
+                    # convert the current time into minutes since midnight
+                    minsArrived = int(clockedIn[0][0])*60 + int(clockedIn[0][1]) # seconds: + int(clockedIn[0][2]/60)
+                    if (clockedIn[1] == "PM"): 
+                        minsArrived += 720     # add 12 hours if the time is PM
+                    #print("minutes at arrival: ", minsArrived)
+
+                    clockedOut[0] = clockedOut[0].split(":")
+                    if (clockedOut[1] == "AM") & (clockedOut[0][0] == "12"): #convert to military time if midnight
+                        clockedOut[0][0] = "0"
+                    # convert the current time into minutes since midnight
+                    minsLeft = int(clockedOut[0][0])*60 + int(clockedOut[0][1]) # seconds: + int(clockedOut[0][2]/60)
+                    if (clockedOut[1] == "PM"): 
+                        minsLeft += 720         # add 12 hours if the time is PM
+                    #print("minutes at departure: ", minsLeft)
+
+                    if (clockedIn[1] == "PM") & (clockedOut[1] == "AM"): # when you work into the next day, the calculation is different
+                        timeSpent = minsLeft + (24*60 - minsArrived)
+                    else: 
+                        timeSpent = abs(minsLeft - minsArrived)
+                    #print("time spent: ", timeSpent)
+                    time += timeSpent
+                    
+
+        else:
+            # add up every worker's hours recursively
+            workers = all_workers(database)                    
+
+            for employee in workers:
+                time += hours(employee,database) # add up everyone's pay
+
+
+    else:
+        print("Incorrect input! The employee you named does not exist.")
+    #print("total minutes worked:",time)
+
+    # statement to print out how much time that employee has spent working:
+    #print("How long", worker, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
+    return time
+
     
 #def compare(worker,toCompare,database):
 

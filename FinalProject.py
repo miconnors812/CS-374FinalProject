@@ -34,7 +34,7 @@ def generate_tokens(line):
 
     i = 0
     for pattern in patterns:
-        matches = re.findall(pattern, text)
+        matches = re.findall(pattern, line)
         for match in matches:
             tokens.append(match)
             tokentypes.append(patterntypes[i])

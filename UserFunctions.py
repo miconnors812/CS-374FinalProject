@@ -12,7 +12,6 @@ def worker_exists(worker,database):
     else: 
         # loop through all workers and see if any name matches the input
         for i in range(1,len(database)):       # go through each response, excluding the format example 
-                print(i)
                 if (worker == database[i][2]): # database[2] is the column that holds all worker names in the spreadsheet
                     exists = 1
     #print(exists)
@@ -31,6 +30,7 @@ def pay(worker,database):
             for i in range(1,len(database)):
                 if (database[i][2] == worker) & (database[i][1] != job):
                     job = database[i][1]
+            # <----------------- EDIT ANY PAY RATES HERE!!!!
             if (job == "Worker"):
                 wage = 15        # $15 an hour for workers
             if (job == "Manager"):
@@ -40,7 +40,7 @@ def pay(worker,database):
 
             # Next, determine their hours
             #time = hours(worker,database)
-            
+
             time = 5 #TEST VALUEEE
 
             # Finally, calculate their earnings
@@ -53,16 +53,21 @@ def pay(worker,database):
             workers = []
             for i in range(1,len(database)):
                 workers.append(database[i][2])  # preemptively add their name to the end
+                #print(database[i][2] + " appended!")
                 for j in range(len(workers)-1):   # check every name but the most recent
-                    if (workers[j] == workers[-1]): # has this name already been put in the array of workers?
+                    #print(workers[j]+" VS "+workers[len(workers)-1])
+                    if (workers[j] == workers[len(workers)-1]): # has this name already been put in the array of workers?
                         workers.pop()                  # if so, remove them
+                        #print("Duplicate popped!")
+                        break                             # we don't need to go any further
 
-            print(workers)
-                    #if (database[2][i] == database[2][j]):
+            for employee in workers:
+                earnings += pay(employee,database) # add up everyone's pay
 
 
     else:
         print("Incorrect input! The employee you named does not exist.")
+    #print(earnings)
     return earnings
 
 

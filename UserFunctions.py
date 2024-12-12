@@ -84,6 +84,8 @@ def hours(worker,database):
 
             for i in range(1,len(database)):
                 if (database[i][2] == worker):
+
+                    # Tokenize time inputs in order to parse them
                     clockedIn = database[i][4].split(" ")
                     clockedOut = database[i][5].split(" ")
 
@@ -110,6 +112,37 @@ def hours(worker,database):
                     else: 
                         timeSpent = abs(minsLeft - minsArrived)
                     #print("time spent: ", timeSpent)
+
+                    #------------------------------------------------
+                    # BREAK DURATION PARSING HERE
+                    #------------------------------------------------
+
+                    # Tokenize input for break duration so it can be parsed
+                    tokenizedBreak = database[i][6].split(" ")
+                    breakDuration = 0
+                    pendingNum = 0
+
+                    # Scan tokenized input and parse keywords
+                    for i in range(len(tokenizedBreak)):
+                        if (tokenizedBreak[i] == "hours") | (tokenizedBreak[i] == "hour"):
+                            #print("hours detected!")
+                            breakDuration += pendingNum * 60
+                            pendingNum = 0
+                        elif (tokenizedBreak[i] == "secs") | (tokenizedBreak[i] == "seconds"):  # it's really dystopian to track seconds used up on breaks...
+                            breakDuration += pendingNum / 60
+                            pendingNum = 0
+                        elif (tokenizedBreak[i] == "mins") | (tokenizedBreak[i] == "minutes") | (tokenizedBreak[i] == "minute") | (tokenizedBreak[i] == "min"):
+                            #print("mins detected!")
+                            breakDuration += pendingNum
+                            pendingNum = 0
+                        elif (re.search(r'\d', tokenizedBreak[i])):
+                            #print("digit detected: " + tokenizedBreak[i])
+                            pendingNum = int(tokenizedBreak[i])
+                    if (timeSpent > breakDuration): # Make sure time spent doesn't turn negative if there is an edge case
+                        timeSpent -= breakDuration  # You were not working over break, so subtract that time from hours worked
+                    else:
+                        timeSpent = 0
+                    
                     time += timeSpent
                     
 
@@ -126,7 +159,7 @@ def hours(worker,database):
     #print("total minutes worked:",time)
 
     # statement to print out how much time that employee has spent working:
-    #print("How long", worker, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
+    print("How long", worker, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
     return time
 
     

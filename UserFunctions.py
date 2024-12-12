@@ -13,6 +13,8 @@ def worker_exists(worker,database):
     else: 
         # loop through all workers and see if any name matches the input
         for i in range(1,len(database)):       # go through each response, excluding the format example 
+                if len(database[i]) <= 2:
+                    continue
                 if (worker == database[i][2]): # database[2] is the column that holds all worker names in the spreadsheet
                     exists = 1
     #print(exists)
@@ -24,6 +26,12 @@ def all_workers(database):
     # So we must also weed out those names that appear multiple times.
     workers = []
     for i in range(1,len(database)):
+
+        # add safeguard to make sure we're not appending an empty list
+        # (avoiding out of bounds errors)
+        if len(database[i]) <= 2:
+            continue
+
         workers.append(database[i][2])  # preemptively add their name to the end
         #print(database[i][2] + " appended!")
         for j in range(len(workers)-1):   # check every name but the most recent
@@ -45,6 +53,8 @@ def pay(worker,database):
             # Determine Worker's job position
             job = ""
             for i in range(1,len(database)):
+                if len(database[i]) < 3:
+                        continue
                 if (database[i][2] == worker) & (database[i][1] != job):
                     job = database[i][1]
             # <----------------- EDIT ANY PAY RATES HERE!!!!
@@ -83,6 +93,8 @@ def hours(worker,database):
         if (exists == 1): # only one employee's name was inputted 
 
             for i in range(1,len(database)):
+                if len(database[i]) <= 2:
+                    continue
                 if (database[i][2] == worker):
 
                     # Tokenize time inputs in order to parse them

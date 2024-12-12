@@ -1,4 +1,4 @@
-#                                   CS-374 Final Project: Michael Connors, Evan Tilton, Owen LastName
+#                                   CS-374 Final Project: Michael Connors, Evan Tilton, Owen Fazzini
 #======================================================================================================================================
 # The goal of this program is to utilize google forms to take your input and parse the downloaded google forms responses.
 # We would like it to be able to read from a .csv of an excel spreadsheet since that is where the form responses will be stored.

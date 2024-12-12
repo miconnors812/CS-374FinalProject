@@ -1,14 +1,14 @@
-#                                   CS-374 Final Project: Michael Connors, Evan Tilton, Owen Fazzini
-# ======================================================================================================================================
+#                                   CS-374 Final Project: Michael Connors, Evan Tilton, Owen LastName
+#======================================================================================================================================
 # The goal of this program is to utilize google forms to take your input and parse the downloaded google forms responses.
 # We would like it to be able to read from a .csv of an excel spreadsheet since that is where the form responses will be stored.
 # =====================================================================================================================================
 
-# File Input / splitting up
 import re           # for regular expressions
 import requests     # pip install requests
 
-def generate_tokens(file_name):
+
+def generate_database(file_name):
     # Turn file into an array of each row in the excel spreadsheet
     file = open(file_name)
     data = file.read()
@@ -40,7 +40,7 @@ def download_google_sheet_as_csv(sheet_id, file_name):
         print(f"Failed to download the file. HTTP status code: {response.status_code}")
 
 
-sheet_id = '1l20PqkNbb3_HmhJprtnLzuWiBWeYkbv6t5RQKZKMtGU'  # Sheet ID in the URL
+sheet_id = '1l20PqkNbb3_HmhJprtnLzuWiBWeYkbv6t5RQKZKMtGU'  #<------ Put Sheet ID in the URL here
 file_name = 'FinalProject.csv'
 download_google_sheet_as_csv(sheet_id, file_name)
-generate_tokens(file_name)
+generate_database(file_name)

@@ -68,5 +68,5 @@ database = generate_database(file_name)
 line = "hi" # change line to be user input of command
 tokens = generate_tokens(line)
 
-pay("Test_Person",database)
+pay("all",database)
 

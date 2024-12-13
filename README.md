@@ -8,3 +8,5 @@ Google Sheets that stores all responses: https://docs.google.com/spreadsheets/d/
 Google Sheet for output: https://docs.google.com/spreadsheets/d/19_a76VLiyTyHuXwHH4-beAQuUvxEowTaJiBVJSRRlPI/edit?gid=0#gid=0
 
 The Google Form has Regular Expressions built in to help narrow down possible user input. The "Worker Name:" field does not allow any commas, and the "Break Duration:" response has to fit in the criteria of this regular expression: \d+ [a-z]+( [a-z]* ?\d+ [a-z]+)?
+
+File paths will have to be updated based on local file location.

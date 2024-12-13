@@ -7,7 +7,7 @@
 import re           # for regular expressions
 import requests     # pip install requests
 from userfunctions import *
-from googlesheets import *
+from googlesheets import update
 import os
 
 
@@ -30,9 +30,9 @@ def generate_tokens(line):
     tokens = []
     tokentypes = []
 
-    patterns = ['pay', 'hours', r'workername=\w+ \w+']
+    patterns = ['pay', 'hours', r'workername=\w+ \w+', 'update']
     
-    patterntypes = ["pay", "hours", "workername"]
+    patterntypes = ["pay", "hours", "workername", "update"]
 
     i = 0
     for pattern in patterns:
@@ -96,7 +96,7 @@ def download_google_sheet_as_csv(sheet_id, file_name):
 
 
 sheet_id = '1l20PqkNbb3_HmhJprtnLzuWiBWeYkbv6t5RQKZKMtGU'  #<------ Put Sheet ID in the URL here
-file_name = 'FinalProject.csv'
+file_name = 'C:/Users/shado/testscripts/mongan final project/finalproject.csv'
 download_google_sheet_as_csv(sheet_id, file_name)
 database = generate_database(file_name)
 

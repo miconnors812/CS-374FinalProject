@@ -57,7 +57,7 @@ def parse(database, tokens, tokentypes):
                     print("How much money", workername, "earned: $", earnings)
                 return
             else:
-                pay("all",database)
+                earnings = pay("all",database)
                 if (earnings >= 0):
                     print("How much money", workername, "earned: $", earnings)
                 return
@@ -69,7 +69,7 @@ def parse(database, tokens, tokentypes):
                     print("How long", workername, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
                 return
             else:
-                hours("all",database)
+                time = hours("all",database)
                 if (time >= 0):
                     print("How long", workername, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
                 return

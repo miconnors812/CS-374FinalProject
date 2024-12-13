@@ -4,7 +4,6 @@
 
 
 from userfunctions import all_workers, hours, pay
-from finalproject import generate_database
 import gspread
 from googleapiclient.discovery import build
 from google.oauth2.service_account import Credentials
@@ -14,9 +13,10 @@ import csv
 # opens spreadsheet with the service account provided by key.json
 gc = gspread.service_account("C:/Users/shado/testscripts/mongan final project/key.json")
 wks = gc.open("final project output spreadsheet").sheet1
-database = generate_database("C:/Users/shado/testscripts/mongan final project/finalproject.csv")
 
 def update():
+    from finalproject import generate_database
+    database = generate_database("C:/Users/shado/testscripts/mongan final project/finalproject.csv")
     workers = all_workers(database)
     # check to see if there's a corresponding cell for each worker,
     # and, if not, update the spreadsheet accordingly

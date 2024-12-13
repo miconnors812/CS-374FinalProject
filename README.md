@@ -19,4 +19,5 @@ Google Slideshow Presentation: https://docs.google.com/presentation/d/1BeNvWNpis
 Evan's Digital Presentation: https://youtu.be/gQ8b7aSxRLY
 
 ---------------------[ Submission Writeup]---------------------------
+
 Our program idea was to parse inputs based on reponses to a Google Form. We did so by putting every response into a Google Sheet, downloading it as a csv, and then performing calculations specified through user input based on the values stored. Finally, the user has a choice to upload their calculations into a separate Google Sheet that makes the information a lot easier to process for those who are not as technilogically inclined. We had some complications with the unit tests though. The unittest import used to test our functions caused some issues. However, our functions are equipped to handle any edge case from the user input, and the google forms can only accept certainly formatted responses so the database can not be sabotaged. It took us two days to complete our project before the deadline. It was very enjoyable to watch as our concept flourished into a fully fledged program. Therefore, we believe that we deserve an A on our outstanding project.

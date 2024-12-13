@@ -174,7 +174,4 @@ def hours(worker,database):
     #print("How long", worker, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
     return time
 
-    
-#def compare(worker,toCompare,database):
-
-#def 
+ 

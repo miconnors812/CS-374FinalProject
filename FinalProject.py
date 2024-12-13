@@ -53,19 +53,25 @@ def parse(database, tokens, tokentypes):
             if len(tokens) > 0:
                 workername = tokens.pop()[11:]
                 earnings = pay(workername,database)
-                print("How much money", workername, "earned: $", earnings)
+                if (earnings >= 0):
+                    print("How much money", workername, "earned: $", earnings)
                 return
             else:
                 pay("all",database)
+                if (earnings >= 0):
+                    print("How much money", workername, "earned: $", earnings)
                 return
         elif type == "hours":
             if len(tokens) > 0:
                 workername = tokens.pop()[11:]
                 time = hours(workername,database)
-                print("How long", workername, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
+                if (time >= 0):
+                    print("How long", workername, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
                 return
             else:
                 hours("all",database)
+                if (time >= 0):
+                    print("How long", workername, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
                 return
         elif type == "update":
             update()

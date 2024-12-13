@@ -6,7 +6,9 @@
 
 import re           # for regular expressions
 import requests     # pip install requests
-from UserFunctions import *
+from userfunctions import *
+from googlesheets import *
+import os
 
 
 def generate_database(file_name):
@@ -20,7 +22,7 @@ def generate_database(file_name):
     tokens = [0] * len(responses)
     for i in range(len(responses)):
         tokens[i] = responses[i].split(",")
-    print(tokens)
+    #print(tokens)
 
     return tokens
 
@@ -42,24 +44,38 @@ def generate_tokens(line):
     
     return tokens, tokentypes
 
+
 def parse(database, tokens, tokentypes):
     while len(tokentypes) > 0:
-        token = tokens.pop(0)
+        #token = tokens.pop(0)
         type = tokentypes.pop(0)
         if type == "pay":
             if len(tokens) > 0:
-                pay(tokens.pop(),database)
+                workername = tokens.pop()[11:]
+                earnings = pay(workername,database)
+                print("How much money", workername, "earned: $", earnings)
+                return
             else:
                 pay("all",database)
+                return
         elif type == "hours":
             if len(tokens) > 0:
-                hours(tokens.pop(),database)
+                workername = tokens.pop()[11:]
+                time = hours(workername,database)
+                print("How long", workername, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
+                return
             else:
                 hours("all",database)
+                return
         elif type == "update":
             update()
+            print("Update complete.")
+            return
+        elif type == "exit":
+            breakage = True
+            return
         else:
-            print("Entry not matching available functions", e)     
+            print("Entry not matching available functions")     
 
 
 def download_google_sheet_as_csv(sheet_id, file_name):
@@ -84,7 +100,16 @@ file_name = 'FinalProject.csv'
 download_google_sheet_as_csv(sheet_id, file_name)
 database = generate_database(file_name)
 
-line = "hi" # change line to be user input of command
-tokens, tokentypes = generate_tokens(line)
-parse(database, tokens, tokentypes)
+os.system('cls')
+print("Welcome to the Worker Watcher. Please input a command from the options below: ")
+print("     pay workername=[worker]: Fetches the pay for a specific worker.")
+print("     hours workername=[worker]: Get the hours")
+print("     update: Updates data in the output Google Sheet.")
+
+while True:
+    line = input("Input a command. Ctrl+C to exit: ")
+    tokens, tokentypes = generate_tokens(line)
+    parse(database, tokens, tokentypes)
+
+
 

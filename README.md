@@ -2,7 +2,7 @@
 WORKER WATCHER
 By: Michael Connors, Evan Tilton, and Owen Fazzini
 
-This program is be able to parse and execute commands based on a database of information from Google Forms responses.
+This program is able to parse and execute commands based on a database of information from Google Forms responses.
 
 Google Form to fill out: https://docs.google.com/forms/d/e/1FAIpQLSczvHolDctkvJLxm-PfOcCE4VcJFqqBH994Auo-6Q1thZ3Ncw/viewform
 

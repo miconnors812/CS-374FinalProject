@@ -107,8 +107,8 @@ def hours(worker,database):
                         clockedIn[0][0] = "0"
                     # convert the current time into minutes since midnight
                     minsArrived = int(clockedIn[0][0])*60 + int(clockedIn[0][1]) # seconds: + int(clockedIn[0][2]/60)
-                    if (clockedIn[1] == "PM"): 
-                        minsArrived += 720     # add 12 hours if the time is PM
+                    if (clockedIn[1] == "PM") & (clockedIn[0][0] != "12"): 
+                        minsArrived += 720     # add 12 hours if the time is PM (unless noon)
                     #print("minutes at arrival: ", minsArrived)
 
                     clockedOut[0] = clockedOut[0].split(":")
@@ -116,8 +116,8 @@ def hours(worker,database):
                         clockedOut[0][0] = "0"
                     # convert the current time into minutes since midnight
                     minsLeft = int(clockedOut[0][0])*60 + int(clockedOut[0][1]) # seconds: + int(clockedOut[0][2]/60)
-                    if (clockedOut[1] == "PM"): 
-                        minsLeft += 720         # add 12 hours if the time is PM
+                    if (clockedOut[1] == "PM") & (clockedOut[0][0] != "12"): 
+                        minsLeft += 720         # add 12 hours if the time is PM (unless noon)
                     #print("minutes at departure: ", minsLeft)
 
                     if (clockedIn[1] == "PM") & (clockedOut[1] == "AM"): # when you work into the next day, the calculation is different

@@ -1,6 +1,6 @@
 import unittest
-import UserFunctions
-import FinalProject
+from userfunctions import *
+from finalproject import *
 
 sheet_id = '1l20PqkNbb3_HmhJprtnLzuWiBWeYkbv6t5RQKZKMtGU'  #<------ Put Sheet ID in the URL here
 file_name = 'C:/Users/shado/testscripts/mongan final project/finalproject.csv'
@@ -46,7 +46,7 @@ class TestFunctions(unittest.TestCase):
         expected.append([[],[]])
 
         runs = 0
-        for line of lines:
+        for line in lines:
             tokens, tokentypes = generate_tokens(line)
             assertEqual(expected[runs][0], tokens)
             assertEqual(expected[runs][1], tokentypes)

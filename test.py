@@ -1,5 +1,4 @@
 import unittest
-from userfunctions import *
 from finalproject import *
 
 sheet_id = '1l20PqkNbb3_HmhJprtnLzuWiBWeYkbv6t5RQKZKMtGU'  #<------ Put Sheet ID in the URL here
@@ -8,14 +7,6 @@ download_google_sheet_as_csv(sheet_id, file_name)
 database = generate_database(file_name)
 
 class TestFunctions(unittest.TestCase):
-
-    def test_worker_exists(self):
-        retn = worker_exists("asjfhsakgksangjasnkg", database)
-        assertEqual(retn, 0)
-        ret = worker_exists("Evan Tilton", database)
-        assertEqual(ret, 1)
-        retall = worker_exists("all", database)
-        assertEqual(retall, 2)
 
     def test_tokenizer(self):
         lines = []

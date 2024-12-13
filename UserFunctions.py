@@ -82,7 +82,7 @@ def pay(worker,database):
     else:
         print("Incorrect input! The employee you named does not exist.")
 
-    print("How much money", worker, "earned: $", earnings)
+    #print("How much money", worker, "earned: $", earnings)
     return earnings
 
 
@@ -171,7 +171,7 @@ def hours(worker,database):
     #print("total minutes worked:",time)
 
     # statement to print out how much time that employee has spent working:
-    print("How long", worker, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
+    #print("How long", worker, "spent working:", math.floor(time/60), "hours and", time%60, "minutes") # time%360 for seconds?
     return time
 
     

@@ -42,6 +42,25 @@ def generate_tokens(line):
     
     return tokens, tokentypes
 
+def parse(database, tokens, tokentypes):
+    while len(tokentypes) > 0:
+        token = tokens.pop(0)
+        type = tokentypes.pop(0)
+        if type == "pay":
+            if len(tokens) > 0:
+                pay(tokens.pop(),database)
+            else:
+                pay("all",database)
+        elif type == "hours":
+            if len(tokens) > 0:
+                hours(tokens.pop(),database)
+            else:
+                hours("all",database)
+        elif type == "update":
+            update()
+        else:
+            print("Entry not matching available functions", e)     
+
 
 def download_google_sheet_as_csv(sheet_id, file_name):
     # URL to export Google Sheets as CSV
@@ -67,6 +86,4 @@ database = generate_database(file_name)
 
 line = "hi" # change line to be user input of command
 tokens = generate_tokens(line)
-
-pay("all",database)
 

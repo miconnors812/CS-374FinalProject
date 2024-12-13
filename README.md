@@ -10,3 +10,5 @@ Google Sheet for output: https://docs.google.com/spreadsheets/d/19_a76VLiyTyHuXw
 The Google Form has Regular Expressions built in to help narrow down possible user input. The "Worker Name:" field does not allow any commas, and the "Break Duration:" response has to fit in the criteria of this regular expression: \d+ [a-z]+( [a-z]* ?\d+ [a-z]+)?
 
 File paths will have to be updated based on local file location.
+
+EVANPRES: https://youtu.be/gQ8b7aSxRLY
